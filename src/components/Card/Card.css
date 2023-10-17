@@ -1,0 +1,17 @@
+.pokemon-card{
+    flex-basis: 200px;
+    margin: 20px 10px;
+    padding: 25px 0px;
+    border: 1px solid #ffffff;
+    box-shadow: #EDEDED 0 10px 10px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.pokemon-name{
+    position: absolute;
+    top: -27px;
+    left: 14px;
+    font-size: 17px;
+}
