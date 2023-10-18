@@ -1,17 +1,26 @@
 .pokemon-card{
     flex-basis: 200px;
-    margin: 20px 10px;
-    padding: 25px 0px;
-    border: 1px solid #ffffff;
-    box-shadow: #EDEDED 0 10px 10px;
+    margin: 30px 10px;
+    padding: 40px 0px;
+
+    box-shadow: #f8f8f8 0 10px 10px;
     border-radius: 8px;
     position: relative;
     display: flex;
     justify-content: center;
+    cursor: pointer;
+    transition: 100ms;
+}
+.pokemon-card:hover{
+    transform: scale(110%);
+    transition: 100ms ease-out;
 }
 .pokemon-name{
     position: absolute;
-    top: -27px;
-    left: 14px;
-    font-size: 17px;
+    top: -20px;
+    left: 24px;
+}
+.pokemon-id{
+    color: #c6c6c6;
+    font-weight: 500;
 }

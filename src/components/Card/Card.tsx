@@ -4,11 +4,15 @@ type CardProps = {
   id: number
 }
 
+function handleCard(){
+
+}
+
 function Card({name, id}: CardProps) {
   return (
     <>
-      <div className='pokemon-card'>
-        <h2 className='pokemon-name'>{name}</h2>
+      <div className='pokemon-card' onClick={handleCard()}>
+        <h2 className='pokemon-name'><span className='pokemon-id'>#{id} </span>{name}</h2>
         <img src ={` https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}/>
       </div>
       
