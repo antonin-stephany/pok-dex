@@ -45,9 +45,3 @@
 .pokemon-description_container span{
     color:#c6c6c6;
 }
-.pokemon-description_container .titles{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
