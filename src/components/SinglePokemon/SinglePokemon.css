@@ -1,0 +1,8 @@
+.pokemon-description_container{
+    position: fixed;
+    bottom: 0vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+}

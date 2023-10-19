@@ -14,7 +14,6 @@ function App() {
   const fetchInfo = () => {
      axios.get(url).then((res) => {
       const data = res.data.slice(1, 1011) 
-      console.log(data)
       function extractInformations<T>(dataArray: T[], properties: (keyof T)[]): T[] {
         return dataArray.map((object) => {
           const newObject: Partial<T> = {};
@@ -24,9 +23,8 @@ function App() {
           return newObject as T;
         });
       }
-      const propertiesSelected: (keyof Pokemon)[] = ["pokedexId", "category", "name"];
+      const propertiesSelected: (keyof Pokemon)[] = ["pokedexId", "name"];
       const newData: Pokemon[] = extractInformations(data, propertiesSelected);
-      console.log(newData)
       setData(newData)
     });
   };
@@ -43,7 +41,11 @@ function App() {
         category:  res.data.category,
         name: {
           fr: res.data.name.fr
-        }
+        },
+        types: res.data.types.map((typeData:{name:string}) => ({
+          name: typeData.name,
+        })),
+          
       }
       console.log(pokemon)
       setSinglePokemon(pokemon)
