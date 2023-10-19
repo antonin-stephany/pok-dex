@@ -1,28 +1,16 @@
 import './SinglePokemon.css'
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Pokemon} from '../../type'
 
 type SinglePokemonProps = {
-    id: number
+  pokemon: Pokemon
   }
 
-function SinglePokemon({id}: SinglePokemonProps) {
-    const url = `https://api-pokemon-fr.vercel.app/api/v1/pokemon/${id}`;
-    const [pokemon, setPokemon] = useState([]);
-  
-    const fetchInfo = () => {
-       axios.get(url).then((res) => {
-        console.log(res)
-      });
-    };
-  
-    useEffect(() => {
-      fetchInfo();
-    }, []);
+function SinglePokemon({pokemon}: SinglePokemonProps) {
   return (
     <>
       <section className='pokemon-description_container'>
-     
+        <p>{pokemon.pokedexId}</p>
+        <p>{pokemon.category}</p>
       </section>
     </>
   )
