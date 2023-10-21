@@ -6,10 +6,17 @@ type SinglePokemonProps = {
   }
 
 function SinglePokemon({pokemon}: SinglePokemonProps) {
+ 
   return (
     <>
       <section className='pokemon-description_container'>
-        <img src ={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.pokedexId}.gif`} />
+        <img
+    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.pokedexId}.gif`}
+    onError={(e) => {
+      e.currentTarget.src = ` https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokedexId}.png`;
+    }}
+    alt={`Image de ${pokemon.name}`}
+  />
         <section>
           <span>#{pokemon.pokedexId}</span>
           <h2>{pokemon.name.fr}</h2>
