@@ -39,8 +39,19 @@ function App() {
       const pokemon = {
         pokedexId: res.data.pokedexId,
         category:  res.data.category,
+        generation: res.data.generation,
         name: {
           fr: res.data.name.fr
+        },
+        height: res.data.height,
+        weight: res.data.weight,
+        stats: {
+          hp: res.data.stats.hp,
+          atk: res.data.stats.atk,
+          def: res.data.stats.def,
+          spe_atk: res.data.stats.spe_atk,
+          spe_def: res.data.stats.spe_def,
+          vit: res.data.stats.vit,
         },
         types: res.data.types.map((typeData:{name:string}) => ({
           name: typeData.name,

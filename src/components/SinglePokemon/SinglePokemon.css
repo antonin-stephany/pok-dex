@@ -5,17 +5,32 @@
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
-    right: calc(50vw - 200px);
     padding: 40px;
     box-shadow: #f8f8f8 0 -10px 10px;
     border-radius: 8px 8px 0 0;
-    height: 80px;
-    width: 400px;
+    height: 115px;
+    width: 80vw;
+    max-width: 1100px;
+}
+.pokemon-description_img-container{
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pokemon-description_importantes-info{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .pokemon-description_container h2{
     font-size: 20px;
     margin: 0;
+    flex-grow: 1;
+
 }
 
 .pokemon-description_container h3{
@@ -23,8 +38,16 @@
     font-weight: 500;
     margin-bottom: 0;
 }
-
-.pokemon-description_container ul{
+.pokemon-description_container h3:nth-of-type(2){
+    padding: 5px 15px;
+    border-radius: 4px;
+    background-color: #F6F6F6;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.pokemon-description_container .pokemon-description_types, .pokemon-description_container .pokemon-description_body{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -34,14 +57,25 @@
     height: 100%;
     margin: 0;
 }
-
-.pokemon-description_container li{
-    list-style-type: none;
+.pokemon-description_container .pokemon-description_body{
+    width: 150px;
+}
+.pokemon-description_container .pokemon-description_types li, .pokemon-description_container .pokemon-description_body li{
     padding: 5px 15px;
     border-radius: 4px;
     background-color: #F6F6F6;
 }
 
-.pokemon-description_container span{
+.pokemon-description_container .pokemon-description_importantes-info span{
     color:#c6c6c6;
+}
+.pokemon-description_container .pokemon-description_stats{
+    margin: 0;
+}
+.pokemon-description_container .pokemon-description_stats li span{
+    width: 50px;
+    display: inline-block;
+}
+.pokemon-description_container .pokemon-description_stats li span:first-of-type{
+    color: #c6c6c6;
 }
