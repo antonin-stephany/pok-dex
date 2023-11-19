@@ -4,13 +4,22 @@ import { Pokemon} from '../../type'
 type BoardProps = {
   pokemons: Array<Pokemon>
   displayCard: (id:number) => void
+  input: string
 }
 
-function Board({pokemons, displayCard}: BoardProps ) {
+function Board({pokemons, displayCard, input}: BoardProps ) {
+  const filteredPokemons = pokemons.filter((el) => {
+    if (input === '') {
+        return el;
+    }
+    else {
+        return el.name.fr.toLowerCase().includes(input)
+    }
+})
   return (
     <>
       <section className='pokemons_container'>
-      {pokemons.map((pokemon: Pokemon) => (
+      {filteredPokemons.map((pokemon: Pokemon) => (
         <Card 
           key = {pokemon.pokedexId}
           name = {pokemon.name.fr}

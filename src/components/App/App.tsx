@@ -2,11 +2,12 @@ import './App.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Board from '../Board/Board'
+import Search from '../Search/Search'
 import SinglePokemon from '../SinglePokemon/SinglePokemon'
 import { Pokemon } from '../../type';
 
 function App() {
-  const url = "https://api-pokemon-fr.vercel.app/api/v1/pokemon";
+  const url = "https://tyradex.vercel.app/api/v1/pokemon";
   const [data, setData] = useState<Pokemon[]>([]);
   const [singlePokemon, setSinglePokemon] = useState<Pokemon | undefined>();
 
@@ -62,13 +63,20 @@ function App() {
       setSinglePokemon(pokemon)
      });
   }
-
+  
+  const [inputText, setInputText] = useState("");
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const lowerCase: string = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
   return (
     <>
       <h1>Pokédex</h1>
+      <input onChange={inputHandler} />
       <Board 
         pokemons ={data}
         displayCard = {displayCard}
+        input={inputText} 
       />
       {singlePokemon &&
       <SinglePokemon 
