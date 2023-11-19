@@ -72,7 +72,7 @@ function App() {
   return (
     <>
       <h1>Pokédex</h1>
-      <input onChange={inputHandler} />
+      <Search inputHandler={inputHandler} />
       <Board 
         pokemons ={data}
         displayCard = {displayCard}

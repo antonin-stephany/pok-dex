@@ -1,12 +1,14 @@
 import './Search.css'
-function Search() {
+function Search({inputHandler}) {
   
   
   return (
     <>
-      <div>
-        test
-      </div>
+      <input 
+        onChange={inputHandler}
+        placeholder="Chercher un pokémon..."
+        className='input-search'
+      />
       
     </>
   )
