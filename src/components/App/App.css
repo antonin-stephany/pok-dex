@@ -5,6 +5,9 @@
   align-items: center;
 
 }
+body {
+  overflow-y: scroll;
+}
 h1{
   text-align: center;
 }

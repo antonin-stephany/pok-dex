@@ -12,7 +12,8 @@ function App() {
   const url = "https://tyradex.vercel.app/api/v1/pokemon";
   const [data, setData] = useState<Pokemon[]>([]);
   const [singlePokemon, setSinglePokemon] = useState<Pokemon | undefined>();
-  const [favoris, setFavoris] = useState<PokemonFav[]>([]);
+  const [favorite, setFavorite] = useState<PokemonFav[]>([]);
+  const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
   const fetchInfo = () => {
      axios.get(url).then((res) => {
@@ -65,29 +66,46 @@ function App() {
       setSinglePokemon(pokemon)
      });
   }
-  function displayFav(id:number, name:string){
-    setFavoris([
-      ...favoris,
-      {name:{fr: name},
-      pokedexId: id}
-    ]);
-    console.log(favoris)
+  function setFav(id: number, name: string) {
+    // Vérifier si l'élément existe déjà dans le tableau
+    const existingFavorite = favorite.find((f) => f.pokedexId === id);
+  
+    if (existingFavorite) {
+      setFavorite(favorite.filter((f) => f.pokedexId !== id));
+    } else {
+      // Si l'élément n'existe pas, l'ajouter au tableau
+      setFavorite([
+        ...favorite,
+        {
+          name: { fr: name },
+          pokedexId: id,
+        },
+      ]);
+    }
   }
   const [inputText, setInputText] = useState("");
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const lowerCase: string = e.target.value.toLowerCase();
     setInputText(lowerCase);
   };
+
+  function onClickMenu(boolean : boolean){
+    setShowFavorites(boolean);
+  }
   return (
     <>
       <h1>Pokédex</h1>
-      <Menu />
+      <Menu 
+        onClickMenu={onClickMenu}
+      />
       <Search inputHandler={inputHandler} />
       <Board 
         pokemons ={data}
+        pokemonsFav = {favorite}
         displayCard = {displayCard}
-        displayFav = {displayFav}
-        input={inputText} 
+        setFav = {setFav}
+        input={inputText}
+        showFavorites={showFavorites}
       />
       {singlePokemon &&
       <SinglePokemon 
