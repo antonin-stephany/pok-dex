@@ -17,3 +17,10 @@ export type Pokemon = {
     }
     types: {name: string}[]
   }
+
+  export type PokemonFav = {
+    pokedexId: number;
+    name: {
+      fr: string;
+    }
+  }

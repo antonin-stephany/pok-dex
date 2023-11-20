@@ -4,10 +4,11 @@ import { Pokemon} from '../../type'
 type BoardProps = {
   pokemons: Array<Pokemon>
   displayCard: (id:number) => void
+  displayFav: (id:number, name:string) => void
   input: string
 }
 
-function Board({pokemons, displayCard, input}: BoardProps ) {
+function Board({pokemons, displayCard, displayFav, input}: BoardProps ) {
   const filteredPokemons = pokemons.filter((el) => {
     if (input === '') {
         return el;
@@ -25,6 +26,7 @@ function Board({pokemons, displayCard, input}: BoardProps ) {
           name = {pokemon.name.fr}
           id = {pokemon.pokedexId}
           onClickCard = {displayCard}
+          onClickFav = {displayFav}
         />
       ))}
       </section>

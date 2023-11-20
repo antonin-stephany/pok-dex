@@ -1,0 +1,13 @@
+.menu{
+    margin: 25px 0;
+    padding: 0;
+    display: flex;
+}
+.menu li{
+    border-bottom: 1px solid #f6f6f6;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.menu li:first-of-type{
+    padding-right: 20px;
+}
