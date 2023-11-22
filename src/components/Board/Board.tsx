@@ -1,16 +1,17 @@
 import './Board.css'
 import Card from '../Card/Card'
-import { PokemonEssential } from '../../type'
+import { PokemonEssential, Pokemon } from '../../type'
 type BoardProps = {
   pokemons: Array<PokemonEssential>;
   pokemonsFav: Array<PokemonEssential>;
+  singlePokemon?: Pokemon 
   displayCard: (id:number) => void
   setFav: (id:number, name:string) => void
   input: string
-  showFavorites: boolean;
+  showFavorites: boolean
 }
 
-function Board({pokemons, pokemonsFav, displayCard, setFav, input, showFavorites}: BoardProps ) {
+function Board({pokemons, pokemonsFav, singlePokemon, displayCard, setFav, input, showFavorites}: BoardProps ) {
   const pokemonsDisplayed = showFavorites ? pokemonsFav : pokemons;
   const filteredPokemons = pokemonsDisplayed.filter((el) => {
     if (input === '') {
@@ -31,6 +32,7 @@ function Board({pokemons, pokemonsFav, displayCard, setFav, input, showFavorites
           isFavorite = {pokemon.isFavorite}
           onClickCard = {displayCard}
           onClickFav = {setFav}
+          isPanelActive = {pokemon.pokedexId === singlePokemon?.pokedexId}
         />
       ))}
       </section>

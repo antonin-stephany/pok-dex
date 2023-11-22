@@ -1,14 +1,15 @@
 import './Menu.css'
 type MenuProps = {
-  onClickMenu: (boolean:boolean) => void
+  onClickMenu: (boolean:boolean) => void,
+  showFavorites: boolean
 }
 
-function Menu({onClickMenu}: MenuProps) {
+function Menu({onClickMenu, showFavorites}: MenuProps) {
   
   return (
     <ul className='menu'>
-        <li onClick={() => onClickMenu(false)}>Liste des pokémons</li>
-        <li onClick={() => onClickMenu(true)}>Mes favoris</li>
+        <li className={showFavorites ? '' : 'active'} onClick={() => onClickMenu(false)}>Liste des pokémons</li>
+        <li className={showFavorites ? 'active' : ''} onClick={() => onClickMenu(true)}>Mes favoris</li>
     </ul>
   )
 }

@@ -2,12 +2,15 @@
     margin: 25px 0;
     padding: 0;
     display: flex;
+    border-bottom: 1px solid #f6f6f6;
 }
 .menu li{
-    border-bottom: 1px solid #f6f6f6;
     padding-bottom: 10px;
     cursor: pointer;
 }
 .menu li:first-of-type{
-    padding-right: 20px;
+    margin-right: 20px;
+}
+.menu li:first-of-type.active, .menu li:last-of-type.active{
+    border-bottom: 1px solid #818181;
 }

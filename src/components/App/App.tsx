@@ -11,7 +11,7 @@ import { Pokemon, PokemonEssential } from '../../type';
 function App() {
   const url = "https://tyradex.vercel.app/api/v1/pokemon";
   const [data, setData] = useState<PokemonEssential[]>([]);
-  const [singlePokemon, setSinglePokemon] = useState<Pokemon | undefined>();
+  const [singlePokemon, setSinglePokemon] = useState<Pokemon>();
   const [favorite, setFavorite] = useState<PokemonEssential[]>([]);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
@@ -97,13 +97,19 @@ function App() {
     setInputText(lowerCase);
   }
 
-  function onClickMenu(boolean : boolean){
+  function onClickMenu(boolean: boolean){
     setShowFavorites(boolean);
+  }
+  function handleHidePanel(){
+    setSinglePokemon(undefined);
   }
   return (
     <>
       <h1>Pokédex</h1>
-      <Menu onClickMenu={onClickMenu} />
+      <Menu 
+        onClickMenu={onClickMenu} 
+        showFavorites={showFavorites}
+      />
       <Search inputHandler={inputHandler} />
       <Board 
         pokemons ={data}
@@ -112,10 +118,12 @@ function App() {
         setFav = {setFav}
         input={inputText}
         showFavorites={showFavorites}
+        singlePokemon={singlePokemon}
       />
       {singlePokemon &&
       <SinglePokemon 
         pokemon = {singlePokemon}
+        onClickPanel={handleHidePanel}
       />}
       <ScrollButton />
     </>

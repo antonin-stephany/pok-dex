@@ -1,10 +1,14 @@
-export type Pokemon = {
-    pokedexId: number;
+
+type PokemonIdentification = {
+  pokedexId: number;
+  name: {
+    fr: string;
+  };
+}
+
+export type Pokemon = PokemonIdentification & {
     category: string;
     generation: string;
-    name: {
-      fr: string;
-    }
     height: string;
     weight: string;
     stats:  {
@@ -18,10 +22,6 @@ export type Pokemon = {
     types: {name: string}[]
   }
 
-  export type PokemonEssential = {
-    pokedexId: number;
-    name: {
-      fr: string;
-    };
+  export type PokemonEssential = PokemonIdentification & {
     isFavorite: boolean;
   }

@@ -22,3 +22,7 @@
     font-size: 18px;
     padding-right: 15px;
 }
+
+.input-search-bar:focus-within{
+     box-shadow: rgb(239, 238, 238) 0 10px 10px;
+}

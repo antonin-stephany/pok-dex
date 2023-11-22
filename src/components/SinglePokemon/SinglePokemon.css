@@ -79,3 +79,21 @@
 .pokemon-description_container .pokemon-description_stats li span:first-of-type{
     color: #c6c6c6;
 }
+.button-close-panel{
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    background-color: #4d4d4d;
+    cursor: pointer;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 100ms ease-out;
+}
+.button-close-panel:hover{
+    transform: scale(120%);
+    transition: 100ms ease-out;
+}
