@@ -1,6 +1,9 @@
 import './Menu.css'
+type MenuProps = {
+  onClickMenu: (boolean:boolean) => void
+}
 
-function Menu({onClickMenu}) {
+function Menu({onClickMenu}: MenuProps) {
   
   return (
     <ul className='menu'>

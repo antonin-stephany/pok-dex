@@ -6,16 +6,16 @@ import Search from '../Search/Search';
 import SinglePokemon from '../SinglePokemon/SinglePokemon';
 import ScrollButton from '../ScrollButton/ScrollButton';
 import Menu from '../Menu/Menu';
-import { Pokemon, PokemonFav } from '../../type';
+import { Pokemon, PokemonEssential } from '../../type';
 
 function App() {
   const url = "https://tyradex.vercel.app/api/v1/pokemon";
-  const [data, setData] = useState<Pokemon[]>([]);
+  const [data, setData] = useState<PokemonEssential[]>([]);
   const [singlePokemon, setSinglePokemon] = useState<Pokemon | undefined>();
-  const [favorite, setFavorite] = useState<PokemonFav[]>([]);
+  const [favorite, setFavorite] = useState<PokemonEssential[]>([]);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
-  const fetchInfo = () => {
+  function fetchInfo(){
      axios.get(url).then((res) => {
       const data = res.data.slice(1, 1011) 
       function extractInformations<T>(dataArray: T[], properties: (keyof T)[]): T[] {
@@ -24,15 +24,18 @@ function App() {
           for (const prop of properties) {
             newObject[prop] = object[prop];
           }
-          return newObject as T;
+          return { ...newObject, isFavorite: false } as T;
         });
       }
-      const propertiesSelected: (keyof Pokemon)[] = ["pokedexId", "name"];
-      const newData: Pokemon[] = extractInformations(data, propertiesSelected);
+      const propertiesSelected: (keyof PokemonEssential)[] = ["pokedexId", "name"];
+      const newData: PokemonEssential[] = extractInformations(data, propertiesSelected);
+      newData.forEach((pokemon) => {
+        pokemon.isFavorite = false;
+      })
       setData(newData)
       console.log(newData)
     });
-  };
+  }
 
   useEffect(() => {
     fetchInfo();
@@ -72,6 +75,8 @@ function App() {
   
     if (existingFavorite) {
       setFavorite(favorite.filter((f) => f.pokedexId !== id));
+      const newData = data.map(pokemon => (pokemon.pokedexId === id ? { ...pokemon, isFavorite: false } : pokemon));
+      setData(newData)
     } else {
       // Si l'élément n'existe pas, l'ajouter au tableau
       setFavorite([
@@ -79,15 +84,18 @@ function App() {
         {
           name: { fr: name },
           pokedexId: id,
+          isFavorite: true,
         },
       ]);
+      const newData = data.map(pokemon => (pokemon.pokedexId === id ? { ...pokemon, isFavorite: true } : pokemon));
+      setData(newData)
     }
   }
   const [inputText, setInputText] = useState("");
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function inputHandler(e: React.ChangeEvent<HTMLInputElement>){
     const lowerCase: string = e.target.value.toLowerCase();
     setInputText(lowerCase);
-  };
+  }
 
   function onClickMenu(boolean : boolean){
     setShowFavorites(boolean);
@@ -95,9 +103,7 @@ function App() {
   return (
     <>
       <h1>Pokédex</h1>
-      <Menu 
-        onClickMenu={onClickMenu}
-      />
+      <Menu onClickMenu={onClickMenu} />
       <Search inputHandler={inputHandler} />
       <Board 
         pokemons ={data}

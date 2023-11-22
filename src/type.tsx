@@ -18,9 +18,10 @@ export type Pokemon = {
     types: {name: string}[]
   }
 
-  export type PokemonFav = {
+  export type PokemonEssential = {
     pokedexId: number;
     name: {
       fr: string;
-    }
+    };
+    isFavorite: boolean;
   }

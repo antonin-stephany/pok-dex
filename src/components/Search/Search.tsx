@@ -7,7 +7,6 @@ interface SearchProps {
 
 function Search({inputHandler} :SearchProps) {
   
-  
   return (
     <div className='input-search-bar'>
       <input 

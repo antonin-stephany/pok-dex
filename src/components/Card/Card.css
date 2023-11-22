@@ -2,7 +2,6 @@
     flex-basis: 200px;
     margin: 30px 10px;
     padding: 40px 0px;
-
     box-shadow: #f8f8f8 0 10px 10px;
     border-radius: 8px;
     position: relative;
@@ -15,10 +14,15 @@
     transform: scale(110%);
     transition: 100ms ease-out;
 }
-.pokemon-name{
+
+.pokemon-header{
     position: absolute;
     top: -20px;
     left: 24px;
+    display: flex;
+    width: calc(100% - 48px);
+    justify-content: space-between;
+    align-items: center;
 }
 .pokemon-id{
     color: #c6c6c6;
