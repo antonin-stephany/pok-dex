@@ -90,9 +90,9 @@ function SinglePokemon({ pokemon, onClickPanel }: SinglePokemonProps) {
               <span>{pokemon.stats.vit}</span>
             </li>
           </ul>
-          <div className="button-close-panel" onClick={() => onClickPanel()}>
+          <button className="button-close-panel" onClick={() => onClickPanel()}>
             <FontAwesomeIcon icon={faXmark} style={{ color: '#ffffff' }} />
-          </div>
+          </button>
         </section>
       ) : (
         ''

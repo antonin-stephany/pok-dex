@@ -3,22 +3,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 body {
   overflow-y: scroll;
 }
-h1{
+h1 {
   text-align: center;
 }
-h2{
+h2 {
   font-weight: 800;
   font-size: 16px;
 }
-h4{
+h4 {
   margin: 0;
 }
-li{
+li {
   font-weight: 500;
   list-style-type: none;
+}
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+}
+
+&::-moz-focus-inner {
+  border: 0;
+  padding: 0;
 }

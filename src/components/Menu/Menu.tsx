@@ -6,14 +6,14 @@ type MenuProps = {
 
 function Menu({ onClickMenu, showFavorites }: MenuProps) {
   return (
-    <ul className="menu">
-      <li className={showFavorites ? '' : 'active'} onClick={() => onClickMenu(false)}>
+    <div className="menu">
+      <button className={showFavorites ? '' : 'active'} onClick={() => onClickMenu(false)}>
         Liste des pokémons
-      </li>
-      <li className={showFavorites ? 'active' : ''} onClick={() => onClickMenu(true)}>
+      </button>
+      <button className={showFavorites ? 'active' : ''} onClick={() => onClickMenu(true)}>
         Mes favoris
-      </li>
-    </ul>
+      </button>
+    </div>
   );
 }
 
