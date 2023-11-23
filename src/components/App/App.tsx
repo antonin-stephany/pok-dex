@@ -18,22 +18,13 @@ function App() {
   function fetchInfo() {
     axios.get(url).then((res) => {
       const data = res.data.slice(1, 1011);
-      function extractInformations<T>(dataArray: T[], properties: (keyof T)[]): T[] {
-        return dataArray.map((object) => {
-          const newObject: Partial<T> = {};
-          for (const prop of properties) {
-            newObject[prop] = object[prop];
-          }
-          return { ...newObject, isFavorite: false } as T;
-        });
-      }
-      const propertiesSelected: (keyof PokemonEssential)[] = ['pokedexId', 'name'];
-      const newData: PokemonEssential[] = extractInformations(data, propertiesSelected);
-      newData.forEach((pokemon) => {
-        pokemon.isFavorite = false;
-      });
-      setData(newData);
-      console.log(newData);
+      console.log(data);
+      const pokemons: PokemonEssential[] = [];
+      data.map((pokemon: { pokedexId: number; name: { fr: string } }) =>
+        pokemons.push({ pokedexId: pokemon.pokedexId, name: pokemon.name, isFavorite: false }),
+      );
+      setData(pokemons);
+      console.log(pokemons);
     });
   }
 
@@ -99,6 +90,7 @@ function App() {
   function onClickMenu(boolean: boolean) {
     setShowFavorites(boolean);
   }
+
   function handleHidePanel() {
     setSinglePokemon(undefined);
   }
