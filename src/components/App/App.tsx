@@ -9,28 +9,35 @@ import Menu from '../Menu/Menu.tsx';
 import { Pokemon, PokemonEssential } from '../../type.tsx';
 
 function App() {
+  const initialePokemonsDisplayed = 40;
   const url = 'https://tyradex.vercel.app/api/v1/pokemon';
   const [data, setData] = useState<PokemonEssential[]>([]);
   const [singlePokemon, setSinglePokemon] = useState<Pokemon>();
   const [favorite, setFavorite] = useState<PokemonEssential[]>([]);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
-
-  function fetchInfo() {
-    axios.get(url).then((res) => {
-      const data = res.data.slice(1, 1011);
-      console.log(data);
-      const pokemons: PokemonEssential[] = [];
-      data.map((pokemon: { pokedexId: number; name: { fr: string } }) =>
-        pokemons.push({ pokedexId: pokemon.pokedexId, name: pokemon.name, isFavorite: false }),
-      );
-      setData(pokemons);
-      console.log(pokemons);
-    });
-  }
+  const [inputText, setInputText] = useState('');
+  const [pokemonsDisplayed, setPokemonsDisplayed] = useState<number>(initialePokemonsDisplayed);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchInfo();
   }, []);
+
+  function fetchInfo() {
+    axios
+      .get(url)
+      .then((res) => {
+        const data = res.data.slice(1, 1011);
+        const pokemons: PokemonEssential[] = [];
+        data.map((pokemon: { pokedexId: number; name: { fr: string } }) =>
+          pokemons.push({ pokedexId: pokemon.pokedexId, name: pokemon.name, isFavorite: false }),
+        );
+        setData(pokemons);
+        console.log(pokemons);
+      })
+      .finally(() => setIsLoading(false));
+  }
 
   function displayCard(id: number) {
     axios.get(`${url}/${id}`).then((res) => {
@@ -81,35 +88,57 @@ function App() {
       setData(newData);
     }
   }
-  const [inputText, setInputText] = useState('');
   function inputHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const lowerCase: string = e.target.value.toLowerCase();
     setInputText(lowerCase);
+    setPokemonsDisplayed(initialePokemonsDisplayed);
   }
 
   function onClickMenu(boolean: boolean) {
     setShowFavorites(boolean);
+    setPokemonsDisplayed(initialePokemonsDisplayed);
   }
 
   function handleHidePanel() {
     setSinglePokemon(undefined);
   }
+  function handleScroll() {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 120 <= document.documentElement.offsetHeight ||
+      isLoading ||
+      pokemonsDisplayed > 1011
+    ) {
+      return;
+    }
+    setPokemonsDisplayed((nb) => nb + 40);
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLoading]);
   return (
     <>
-      <h1>Pokédex</h1>
-      <Menu onClickMenu={onClickMenu} showFavorites={showFavorites} />
-      <Search inputHandler={inputHandler} />
-      <Board
-        pokemons={data}
-        pokemonsFav={favorite}
-        displayCard={displayCard}
-        setFav={setFav}
-        input={inputText}
-        showFavorites={showFavorites}
-        singlePokemon={singlePokemon}
-      />
-      {singlePokemon && <SinglePokemon pokemon={singlePokemon} onClickPanel={handleHidePanel} />}
-      <ScrollButton />
+      <section className={`loader-container ${isLoading ? '' : 'hide'}`}>
+        <div className="loader"></div>
+      </section>
+      <main>
+        <h1>Pokédex</h1>
+        <Menu onClickMenu={onClickMenu} showFavorites={showFavorites} />
+        <Search inputHandler={inputHandler} />
+        <Board
+          pokemons={data}
+          pokemonsFav={favorite}
+          pokemonsIndexMax={pokemonsDisplayed}
+          displayCard={displayCard}
+          setFav={setFav}
+          input={inputText}
+          showFavorites={showFavorites}
+          singlePokemon={singlePokemon}
+        />
+        {singlePokemon && <SinglePokemon pokemon={singlePokemon} onClickPanel={handleHidePanel} />}
+        <ScrollButton />
+      </main>
     </>
   );
 }
