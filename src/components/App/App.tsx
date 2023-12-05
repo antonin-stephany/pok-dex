@@ -29,7 +29,7 @@ function App() {
         setIsLoading(false);
       }, 500);
     }
-  }, []);
+  }, [data.length]);
 
   useEffect(() => {
     localStorage.setItem('pokemons', JSON.stringify(data));
@@ -105,21 +105,21 @@ function App() {
   function handleHidePanel() {
     setSinglePokemon(undefined);
   }
-  function handleScroll() {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 120 <= document.documentElement.offsetHeight ||
-      isLoading ||
-      pokemonsDisplayed > 1011
-    ) {
-      return;
-    }
-    setPokemonsDisplayed((nb) => nb + 40);
-  }
 
   useEffect(() => {
+    function handleScroll() {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 120 <= document.documentElement.offsetHeight ||
+        isLoading ||
+        pokemonsDisplayed > 1011
+      ) {
+        return;
+      }
+      setPokemonsDisplayed((nb) => nb + 40);
+    }
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isLoading]);
+  }, [isLoading, pokemonsDisplayed]);
   return (
     <>
       <section className={`loader-container ${isLoading ? '' : 'hide'}`}>
