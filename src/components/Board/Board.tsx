@@ -3,7 +3,6 @@ import Card from '../Card/Card.tsx';
 import { PokemonEssential, Pokemon } from '../../type.tsx';
 type BoardProps = {
   pokemons: Array<PokemonEssential>;
-  pokemonsFav: Array<PokemonEssential>;
   pokemonsIndexMax: number;
   singlePokemon?: Pokemon;
   displayCard: (id: number) => void;
@@ -12,17 +11,8 @@ type BoardProps = {
   showFavorites: boolean;
 };
 
-function Board({
-  pokemons,
-  pokemonsFav,
-  pokemonsIndexMax,
-  singlePokemon,
-  displayCard,
-  setFav,
-  input,
-  showFavorites,
-}: BoardProps) {
-  const pokemonsDisplayed = showFavorites ? pokemonsFav : pokemons;
+function Board({ pokemons, pokemonsIndexMax, singlePokemon, displayCard, setFav, input, showFavorites }: BoardProps) {
+  const pokemonsDisplayed = showFavorites ? pokemons.filter((pokemon) => pokemon.isFavorite) : pokemons;
   const filteredPokemons = pokemonsDisplayed.filter((el) => {
     if (input === '') {
       return el;

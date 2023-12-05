@@ -11,9 +11,10 @@ import { Pokemon, PokemonEssential } from '../../type.tsx';
 function App() {
   const initialePokemonsDisplayed = 40;
   const url = 'https://tyradex.vercel.app/api/v1/pokemon';
-  const [data, setData] = useState<PokemonEssential[]>([]);
+  const dataInStorage = localStorage.getItem('pokemons');
+  const initData = dataInStorage ? JSON.parse(dataInStorage) : [];
+  const [data, setData] = useState<PokemonEssential[]>(initData);
   const [singlePokemon, setSinglePokemon] = useState<Pokemon>();
-  const [favorite, setFavorite] = useState<PokemonEssential[]>([]);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
   const [inputText, setInputText] = useState('');
   const [pokemonsDisplayed, setPokemonsDisplayed] = useState<number>(initialePokemonsDisplayed);
@@ -21,10 +22,21 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchInfo();
+    if (!data.length) {
+      fetchInfo();
+    } else {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('pokemons', JSON.stringify(data));
+  }, [data]);
+
   function fetchInfo() {
+    console.log('test');
     axios
       .get(url)
       .then((res) => {
@@ -66,24 +78,15 @@ function App() {
       setSinglePokemon(pokemon);
     });
   }
-  function setFav(id: number, name: string) {
+  function setFav(id: number) {
     // Vérifier si l'élément existe déjà dans le tableau
-    const existingFavorite = favorite.find((f) => f.pokedexId === id);
+    const existingFavorite = data.find((f) => f.pokedexId === id && f.isFavorite);
 
     if (existingFavorite) {
-      setFavorite(favorite.filter((f) => f.pokedexId !== id));
       const newData = data.map((pokemon) => (pokemon.pokedexId === id ? { ...pokemon, isFavorite: false } : pokemon));
       setData(newData);
     } else {
       // Si l'élément n'existe pas, l'ajouter au tableau
-      setFavorite([
-        ...favorite,
-        {
-          name: { fr: name },
-          pokedexId: id,
-          isFavorite: true,
-        },
-      ]);
       const newData = data.map((pokemon) => (pokemon.pokedexId === id ? { ...pokemon, isFavorite: true } : pokemon));
       setData(newData);
     }
@@ -128,7 +131,6 @@ function App() {
         <Search inputHandler={inputHandler} />
         <Board
           pokemons={data}
-          pokemonsFav={favorite}
           pokemonsIndexMax={pokemonsDisplayed}
           displayCard={displayCard}
           setFav={setFav}
