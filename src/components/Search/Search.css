@@ -26,3 +26,14 @@
 .input-search-bar:focus-within {
   box-shadow: rgb(239, 238, 238) 0 10px 10px;
 }
+
+@media screen and (max-width: 390px) {
+  .input-search {
+    font-size: 14px;
+    padding-left: 0px;
+  }
+  .input-search-bar svg {
+    font-size: 14px;
+    padding-right: 0px;
+  }
+}
