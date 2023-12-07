@@ -35,65 +35,68 @@ function SinglePokemon({ pokemon, onClickPanel }: SinglePokemonProps) {
   return (
     <>
       {pokemon ? (
-        <section className="pokemon-description_container">
-          <div className="pokemon-description_img-container">
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.pokedexId}.gif`}
-              onError={(e) => {
-                e.currentTarget.src = ` https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokedexId}.png`;
-              }}
-              alt={`${pokemon.name.fr}`}
-            />
-          </div>
-          <section className="pokemon-description_importantes-info">
-            <span>#{pokemon.pokedexId}</span>
-            <h2>{pokemon.name.fr}</h2>
-            <h3>{pokemon.category}</h3>
-            <h3>Génération n°{pokemon.generation}</h3>
-          </section>
-          <ul className="pokemon-description_types">
-            <h4>Types</h4>
-            {pokemon.types.map((type) => (
-              <li key={type.name} style={{ backgroundColor: getTypeColor(type.name) }}>
-                {type.name}
+        <>
+          <section className="pokemon-description_container">
+            <div className="pokemon-description_img-container">
+              <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.pokedexId}.gif`}
+                onError={(e) => {
+                  e.currentTarget.src = ` https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokedexId}.png`;
+                }}
+                alt={`${pokemon.name.fr}`}
+              />
+            </div>
+            <section className="pokemon-description_importantes-info">
+              <span>#{pokemon.pokedexId}</span>
+              <h2>{pokemon.name.fr}</h2>
+              <h3>{pokemon.category}</h3>
+              <h3>Génération n°{pokemon.generation}</h3>
+            </section>
+            <ul className="pokemon-description_types">
+              <h4>Types</h4>
+              {pokemon.types.map((type) => (
+                <li key={type.name} style={{ backgroundColor: getTypeColor(type.name) }}>
+                  {type.name}
+                </li>
+              ))}
+            </ul>
+            <ul className="pokemon-description_body">
+              <h4>Poids et taille</h4>
+              <li>{pokemon.height}</li>
+              <li>{pokemon.weight}</li>
+            </ul>
+            <ul className="pokemon-description_stats">
+              <li>
+                <span>HP </span>
+                <span>{pokemon.stats.hp}</span>
               </li>
-            ))}
-          </ul>
-          <ul className="pokemon-description_body">
-            <h4>Poids et taille</h4>
-            <li>{pokemon.height}</li>
-            <li>{pokemon.weight}</li>
-          </ul>
-          <ul className="pokemon-description_stats">
-            <li>
-              <span>HP </span>
-              <span>{pokemon.stats.hp}</span>
-            </li>
-            <li>
-              <span>Atq </span>
-              <span>{pokemon.stats.atk}</span>
-            </li>
-            <li>
-              <span>Def </span>
-              <span>{pokemon.stats.def}</span>
-            </li>
-            <li>
-              <span>ASp </span>
-              <span>{pokemon.stats.spe_atk}</span>
-            </li>
-            <li>
-              <span>DSp </span>
-              <span>{pokemon.stats.spe_def}</span>
-            </li>
-            <li>
-              <span>Vit </span>
-              <span>{pokemon.stats.vit}</span>
-            </li>
-          </ul>
-          <button className="button-close-panel" onClick={() => onClickPanel()}>
-            <FontAwesomeIcon icon={faXmark} style={{ color: '#ffffff' }} />
-          </button>
-        </section>
+              <li>
+                <span>Atq </span>
+                <span>{pokemon.stats.atk}</span>
+              </li>
+              <li>
+                <span>Def </span>
+                <span>{pokemon.stats.def}</span>
+              </li>
+              <li>
+                <span>ASp </span>
+                <span>{pokemon.stats.spe_atk}</span>
+              </li>
+              <li>
+                <span>DSp </span>
+                <span>{pokemon.stats.spe_def}</span>
+              </li>
+              <li>
+                <span>Vit </span>
+                <span>{pokemon.stats.vit}</span>
+              </li>
+            </ul>
+            <button className="button-close-panel" onClick={() => onClickPanel()}>
+              <FontAwesomeIcon icon={faXmark} style={{ color: '#ffffff' }} />
+            </button>
+          </section>
+          <section className="background-mobile_single-pokemon"></section>
+        </>
       ) : (
         ''
       )}
