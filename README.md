@@ -7,7 +7,7 @@ URL : [(https://antonin-stephany.github.io/pok-dex/)](https://antonin-stephany.g
 
 ## 🛠 Stack
 
-[![My Skills](https://skillicons.dev/icons?i=js,html,css,react,redux)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=js,html,css,react,ts)](https://skillicons.dev)
 
 ## 👨‍💻 Installation
 
